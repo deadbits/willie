@@ -34,7 +34,10 @@ def resolve(bot, trigger):
     ipv4_re = re.compile("^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$")
     if ipv4_re.match(host):
         result = ip2host(host)
-        bot.say('%s resolved to %s' % (host, host2ip(host)))
+        if result is not None:
+            bot.say('%s resolved to %s' % (host, host2ip(host)))
+        else:
+            bot.say('failed to resolve %s' % host)
     elif host2ip(host) is not None:
         bot.say('%s resolved to %s' % (host, ip2host(host)))
     else:
